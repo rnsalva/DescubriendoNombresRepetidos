@@ -5,31 +5,28 @@ import java.util.LinkedList;
 
 public class Resolucion {
 
-	int cantGanadores;
-	LinkedList<Nombre> ll = new LinkedList <>();
+	protected int cantGanadores;
+	protected LinkedList<Nombre> ll = new LinkedList <>();
 	
 	public Nombre[] resolverRepetidos () {
+		/* cant es una variable para atrapar el caso en el que la cantidad de distintos nombres 
+		 * presentes en el archivo de entrada sea menor a la cantidad de ganadores pedidos
+		 */
+		int cant = this.cantGanadores <= this.ll.size() ? this.cantGanadores : this.ll.size();
 		
-		int c = this.cantGanadores <= this.ll.size() ? this.cantGanadores : this.ll.size();
-		Nombre[] names = new Nombre [c];
+		/* Creamos vector de nombres.*/
+		Nombre[] names = new Nombre [cant];
+		
+		/* Ordenamos la lista usando el comparteTo de la clase Nombre.*/
 		ll.sort(null);
+		
+		/* Recorremos la lista y pasamos al vector de nombres la cantidad de ganadores.*/
 		int i = 0;
-		while(i < c) {
+		while(i < cant)
 			names[i] = new Nombre (ll.get(i).nombre,ll.get(i++).contador);
-			/*System.out.println(nuevo.nombre);
-			names[i].nombre = ll.get(i).nombre;
-			names[i].contador = ll.get(i++).contador;
-			System.out.println(names[0].nombre);*/
-		}
+		
+		/* Retornamos el vector de nombres.*/
 		return names;
-	}
-	
-	public static void main(String[] args) throws FileNotFoundException {
-		String path = "C:\\Users\\laboratorios\\Desktop\\";
-		Resolucion res =  Archivo.leerArchivo(path);
-		Nombre [] nom = new Nombre [res.resolverRepetidos().length];
-		nom = res.resolverRepetidos();
-		Archivo.escribirArchivo(path, nom);
 	}
 	
 }
